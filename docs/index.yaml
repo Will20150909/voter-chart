@@ -3,12 +3,12 @@ entries:
   voltdb-voter:
   - apiVersion: v2
     appVersion: 10.2.2
-    created: "2021-04-23T14:27:49.495003992+08:00"
+    created: "2021-04-23T15:53:28.762486+08:00"
     description: A Helm chart for Kubernetes
     digest: 1eda3ebe3d487e2dc280c83633a28c263eef509f6c8a70cb2730bf38b6acf216
     name: voltdb-voter
     type: application
     urls:
-    - https://will20150909.github.io/voter/voltdb-voter-0.1.0.tgz
+    - https://will20150909.github.io/voter-chart/voltdb-voter-0.1.0.tgz
     version: 0.1.0
-generated: "2021-04-23T14:27:49.494281136+08:00"
+generated: "2021-04-23T15:53:28.760197+08:00"
