@@ -43,9 +43,11 @@ helm install voter voter/voltdb-voter
 To run the voter:
 
 1.enter into the pods
+
 kubectl exec -it voter-voltdb-voter-xxxxxx -- bash
 
 2.run the shell script
+
 cd /opt/voter
 ./run.sh init
 ./run.sh client
