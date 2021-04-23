@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "voltdb-voter.fullname" . }}
+  labels:
+    {{- include "voltdb-voter.labels" . | nindent 4 }}
+spec:
+{{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+{{- end }}
+  selector:
+    matchLabels:
+      {{- include "voltdb-voter.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+    {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      labels:
+        {{- include "voltdb-voter.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - sleep
+            - {{ .Values.container.sleep.days}}d
+          env:
+            - name: VOLTDBSERVICE
+              value: {{ .Values.voltdb.release }}-voltdb-cluster-client.{{ .Values.voltdb.namespace }}.svc.cluster.local
+            - name: DURATION
+              value: {{ .Values.voter.duration | quote}}
+            - name: DISPLAYINTERVAL
+              value: {{ .Values.voter.displayinterval | quote}}
+            - name: WARMUP
+              value: {{ .Values.voter.warmup | quote}}
+            - name: CONTESTANTS
+              value: {{ .Values.voter.contestants | quote}}
+            - name: MAXVOTES
+              value: {{ .Values.voter.maxvotes | quote}}
+            - name: RATELIMIT
+              value: {{ .Values.voter.ratelimit | quote}}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
