@@ -1,5 +1,5 @@
 # voter-chart
-this is a pressure testing application for VoltDB. It be designed to run with VoltDB on K8S.
+This is a pressure testing application for VoltDB. It be designed to run with VoltDB on K8S.
 
 It means frist you need deploy VoltDB on K8S, you can look over this for more detail
 https://docs.voltdb.com/KubernetesAdmin/
