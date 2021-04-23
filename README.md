@@ -5,9 +5,9 @@ It means frist you need deploy VoltDB on K8S, you can look over this for more de
 https://docs.voltdb.com/KubernetesAdmin/
 And then you can start up the application by enter into the pods and execute the command:
 
-/opt/voter/run.sh init   ##Create database object such as table, view, procedure which be required by voter.
+run.sh init   ##Create database object such as table, view, procedure which be required by voter.
 
-/opt/voter/run.sh client  ##Run the application to make testing.
+run.sh client  ##Run the application to make testing.
 
 You can get more detail about voter by access the web pages.
 https://github.com/VoltDB/voltdb/tree/master/examples/voter
@@ -31,3 +31,21 @@ In addtion, there are two parameters be used to connect to VoltDB service by K8S
 voltdb.release  ##It should be set the voltdb release name, default is "mydb". You'd better set it to "voltdb".
 
 voltdb.namespace  ##The voltdb cluster's namespace on K8S, default is "default".
+
+Add the Helm repo if you do not already have it:
+
+helm repo add voter https://will20150909.github.io/voter-chart
+
+To install the chart:
+
+helm install voter voter/voltdb-voter
+
+To run the voter:
+
+1.enter into the pods
+kubectl exec -it voter-voltdb-voter-xxxxxx -- bash
+
+2.run the shell script
+cd /opt/voter
+./run.sh init
+./run.sh client
