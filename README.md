@@ -22,6 +22,7 @@ helm upgrade voter presstesting/ --reuse-values --set voter.duration=20 \
                     --set voter.displayinterval=5  --set voter.warmup=5  \
                     --set voter.ratelimit=2000  --set voter.contestants=4 \
                     --set voter.maxvotes=3
+
 And all the default values of the parameters was given by values.ymal in the chart package.
 It works within helm rules, you can provide a customized file to replace.
 
